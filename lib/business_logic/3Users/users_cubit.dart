@@ -24,4 +24,32 @@ class User_Cubit extends Cubit<Users_States> {
 
     // emit(SubjectsSuccess());
   }
+
+  //-----------------------------------------------
+  bool isChecked = false;
+
+  void ChangeSwitch(bool value, UsersModel usersModel) async {
+    usersModel.state = value;
+
+    UsersModel usersModel2 = UsersModel(
+        id: usersModel.id,
+        name: usersModel.name,
+        phone: usersModel.phone,
+        country: usersModel.country,
+        state: value);
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(usersModel.id)
+        .update(usersModel2.toMap());
+    emit(ChangeSwitchState());
+  }
+  //-------------------------------------------------------------
+
+  void deleteItem({required UsersModel usersModel}) async {
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(usersModel.id)
+        .delete();
+    emit(deleteItemState());
+  }
 }

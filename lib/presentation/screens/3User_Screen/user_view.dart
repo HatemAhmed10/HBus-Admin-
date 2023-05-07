@@ -23,7 +23,18 @@ class UserView extends StatelessWidget {
           User_Cubit cubit = User_Cubit.get(context);
           return Scaffold(
             appBar: AppBar(
-              title: Text(cubit.Users.length.toString()),
+              backgroundColor: Color(0xff669E76),
+              title: Text("Users"),
+              actions: [
+                Padding(
+                  padding: const EdgeInsets.only(
+                      right: 20, top: 8, left: 8, bottom: 8),
+                  child: IconButton(
+                    onPressed: () {},
+                    icon: Icon(Icons.save),
+                  ),
+                )
+              ],
             ),
             body: ConditionalBuilder(
               condition: state is! UsersLoadingSuccess,
@@ -33,6 +44,7 @@ class UserView extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return Users_Bosy(
                     Users: cubit.Users[index],
+                    index: index,
                   );
                 },
                 itemCount: cubit.Users.length,
