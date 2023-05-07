@@ -1,29 +1,32 @@
+import 'package:admin/shared/components/1Tooles/5Custom_Navigate.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../business_logic/4Bus/Bus_cubit.dart';
-import '../../../business_logic/4Bus/Bus_state.dart';
+import '../../../business_logic/4Travel_Desc/travel_desc_cubit.dart';
+import '../../../business_logic/4Travel_Desc/travel_desc_state.dart';
+import '../../../data/models/1Travel_Model.dart';
 import '../../../shared/components/1Tooles/1CustomButton.dart';
+import '../../screens/4Bus_Screen/bus_view.dart';
 
-class BottomSheetBody_screen extends StatelessWidget {
+class BottomSheetBody_screen2 extends StatelessWidget {
   final BuildContext context2;
-
-  BottomSheetBody_screen({
-    super.key,
-    required this.context2,
-  });
+  final TravelModel travelModel;
 
   var countryController = TextEditingController();
-  var TimeController = TextEditingController();
-  var SalaryController = TextEditingController();
-  var usersnumberController = TextEditingController();
+  var NameController = TextEditingController();
+  var PhoneController = TextEditingController();
 
   var formKey = GlobalKey<FormState>();
 
+  BottomSheetBody_screen2({
+    super.key,
+    required this.context2,
+    required this.travelModel,
+  });
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => Bus_Cubit(),
+      create: (context) => Travel_Desc_Cubit(),
       child: Form(
         key: formKey,
         child: Column(
@@ -44,16 +47,61 @@ class BottomSheetBody_screen extends StatelessWidget {
                               // style: TextStyle(fontSize: 15),
                               cursorColor: Color(0xff669E76),
 
-                              controller: countryController,
+                              controller: NameController,
                               keyboardType: TextInputType.name,
                               validator: (value) {
                                 if (value!.isEmpty) {
-                                  return 'اكتب اسم الرحله';
+                                  return 'اكتب اسم الشخص';
                                 }
                                 return null;
                               },
                               decoration: const InputDecoration(
-                                labelText: 'الاتجاه',
+                                labelText: 'الاسم',
+                                prefixIcon: Icon(
+                                  Icons.person,
+                                  color: Color(0xff669E76),
+                                ),
+                                // enabledBorder: OutlineInputBorder(
+                                //   borderSide: BorderSide(
+                                //     color: Color(0xffD6A4DE),
+                                //   ),
+                                //   borderRadius: BorderRadius.all(Radius.circular(20)),
+                                // ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0xff669E76),
+                                  ),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20)),
+                                ),
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20)),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            child: TextFormField(
+                              // style: TextStyle(fontSize: 15),
+                              cursorColor: Color(0xff669E76),
+
+                              controller: countryController,
+                              keyboardType: TextInputType.text,
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'اكتب اسم البلد';
+                                }
+                                return null;
+                              },
+                              decoration: const InputDecoration(
+                                labelText: 'البلد',
                                 prefixIcon: Icon(
                                   Icons.location_city,
                                   color: Color(0xff669E76),
@@ -89,106 +137,16 @@ class BottomSheetBody_screen extends StatelessWidget {
                               // style: TextStyle(fontSize: 15),
                               cursorColor: Color(0xff669E76),
 
-                              controller: TimeController,
+                              controller: PhoneController,
                               keyboardType: TextInputType.number,
                               validator: (value) {
                                 if (value!.isEmpty) {
-                                  return 'اكتب وقت الرحله';
+                                  return 'اكتب رقم المحمول';
                                 }
                                 return null;
                               },
                               decoration: const InputDecoration(
-                                labelText: 'الوقت',
-                                prefixIcon: Icon(
-                                  Icons.location_city,
-                                  color: Color(0xff669E76),
-                                ),
-                                // enabledBorder: OutlineInputBorder(
-                                //   borderSide: BorderSide(
-                                //     color: Color(0xffD6A4DE),
-                                //   ),
-                                //   borderRadius: BorderRadius.all(Radius.circular(20)),
-                                // ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Color(0xff669E76),
-                                  ),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(20)),
-                                ),
-                                border: OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(20)),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            child: TextFormField(
-                              // style: TextStyle(fontSize: 15),
-                              cursorColor: Color(0xff669E76),
-
-                              controller: usersnumberController,
-                              keyboardType: TextInputType.number,
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'اكتب  عدد العربيه';
-                                }
-                                return null;
-                              },
-                              decoration: const InputDecoration(
-                                labelText: 'العدد',
-                                prefixIcon: Icon(
-                                  Icons.location_city,
-                                  color: Color(0xff669E76),
-                                ),
-                                // enabledBorder: OutlineInputBorder(
-                                //   borderSide: BorderSide(
-                                //     color: Color(0xffD6A4DE),
-                                //   ),
-                                //   borderRadius: BorderRadius.all(Radius.circular(20)),
-                                // ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Color(0xff669E76),
-                                  ),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(20)),
-                                ),
-                                border: OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(20)),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            child: TextFormField(
-                              // style: TextStyle(fontSize: 15),
-                              cursorColor: Color(0xff669E76),
-
-                              controller: SalaryController,
-                              keyboardType: TextInputType.number,
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'اكتب سعر الرحله';
-                                }
-                                return null;
-                              },
-                              decoration: const InputDecoration(
-                                labelText: 'السعر',
+                                labelText: 'المحمول',
                                 prefixIcon: Icon(
                                   Icons.location_city,
                                   color: Color(0xff669E76),
@@ -223,18 +181,17 @@ class BottomSheetBody_screen extends StatelessWidget {
             Expanded(
               flex: 2,
               child: Container(
-                child: BlocBuilder<Bus_Cubit, Bus_States>(
+                child: BlocBuilder<Travel_Desc_Cubit, Travel_Desc_States>(
                   builder: (context, state) {
                     return CustomAnimatedButton(
                       function: () {
                         if (formKey.currentState!.validate()) {
-                          Bus_Cubit.get(context).addTravel(
+                          Travel_Desc_Cubit.get(context).AddUser(
+                              travelModel: travelModel,
+                              Name: NameController.text,
                               country: countryController.text,
-                              Time: TimeController.text,
-                              salary: SalaryController.text,
-                              number: usersnumberController.text);
-
-                          Navigator.pop(context);
+                              phone: PhoneController.text);
+                          navigateAndFinish(context, Bus_View());
                         }
                       },
                       widget: Text("اضافه"),

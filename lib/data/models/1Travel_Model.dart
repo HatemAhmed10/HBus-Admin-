@@ -6,7 +6,8 @@ class TravelModel {
   String? Time;
   String? salary;
   Timestamp? date;
-  String? date2;
+  String? usersnumber;
+  List? userBus;
 
   TravelModel({
     this.id,
@@ -14,7 +15,8 @@ class TravelModel {
     this.Time,
     this.salary,
     this.date,
-    this.date2,
+    this.usersnumber,
+    this.userBus,
   });
   TravelModel.fromJson(Map<String, dynamic> json) {
     id = json["id"];
@@ -22,7 +24,8 @@ class TravelModel {
     Time = json["Time"];
     salary = json["salary"];
     date = json["date"];
-    date2 = json["date2"];
+    usersnumber = json["usersnumber"];
+    userBus = json["userBus"];
   }
 
   Map<String, dynamic> toMap() {
@@ -32,7 +35,8 @@ class TravelModel {
       'Time': Time,
       'salary': salary,
       'date': date,
-      'date2': date2,
+      'usersnumber': usersnumber,
+      'userBus': userBus,
     };
   }
 }

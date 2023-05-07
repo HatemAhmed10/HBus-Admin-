@@ -14,7 +14,8 @@ class Bus_Cubit extends Cubit<Bus_States> {
   addTravel(
       {required String country,
       required String Time,
-      required String salary}) async {
+      required String salary,
+      required String number}) async {
     emit(AddTravelLoading());
     // try {
     // var subjectsBox = Hive.box<SubjectModel>(kSubjectBox);
@@ -27,7 +28,8 @@ class Bus_Cubit extends Cubit<Bus_States> {
       Time: Time,
       salary: salary,
       date: nowDate,
-      date2: nowDate.toDate().toIso8601String().substring(0, 10).toString(),
+      usersnumber: number,
+      userBus: [],
     );
 
     await FirebaseFirestore.instance
