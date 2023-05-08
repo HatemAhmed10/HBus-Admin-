@@ -40,12 +40,25 @@ class User_List extends StatelessWidget {
             ),
           ),
           trailing: Container(
-            child: IconButton(
-                onPressed: () {
-                  cubit.deleteUser(travelModel: travels2, index: index);
-                  // navigatePop(context, Bus_View());
-                },
-                icon: Icon(Icons.delete)),
+            width: 100,
+            child: Row(
+              children: [
+                Spacer(),
+                IconButton(
+                    onPressed: () {
+                      cubit.Call_User('${travels[index]["phone"]}');
+                    },
+                    icon: Icon(Icons.call)),
+                Spacer(flex: 2),
+                IconButton(
+                    onPressed: () {
+                      cubit.deleteUser(travelModel: travels2, index: index);
+                      // navigatePop(context, Bus_View());
+                    },
+                    icon: Icon(Icons.delete)),
+                Spacer(),
+              ],
+            ),
           ),
           title: Text(travels[index]["name"].toString()),
           subtitle: Text(

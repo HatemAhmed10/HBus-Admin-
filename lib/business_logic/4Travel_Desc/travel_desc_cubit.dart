@@ -3,11 +3,24 @@ import 'package:admin/data/models/1Travel_Model.dart';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Travel_Desc_Cubit extends Cubit<Travel_Desc_States> {
   Travel_Desc_Cubit() : super(Travel_DescInitialState());
 
   static Travel_Desc_Cubit get(context) => BlocProvider.of(context);
+  Timestamp nowDate = Timestamp.now();
+
+  void Call_User(String phoneNumber) async {
+    final String telUrl = "tel:${phoneNumber}";
+
+    if (await canLaunch(telUrl)) {
+      await launch(telUrl);
+    } else {
+      throw "Could not launch $telUrl";
+    }
+    emit(CallUserState());
+  }
 
   void deleteUser(
       {required TravelModel travelModel, required int index}) async {
